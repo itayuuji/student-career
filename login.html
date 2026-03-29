@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - CareerGuide</title>
+    
 
     <style>
         body {
@@ -76,24 +77,41 @@
             <button type="submit">Login</button>
         </form>
 
-        <p>Don't have an account? <a href="#">Register</a></p>
+        <p>Don't have an account? <a href="#" onclick="registerUser()">Register</a> </p>
     </div>
 
-   <script>
+  <script>
+function registerUser() {
+    let email = prompt("Enter your email:");
+    let password = prompt("Enter your password:");
+
+    if(email && password){
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userPassword", password);
+        alert("Registered successfully ✅");
+    } else {
+        alert("Please enter valid details ❌");
+    }
+}
+
 function validateLogin(event) {
     event.preventDefault();
 
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
 
-    if(email === "admin@gmail.com" && password === "1234") {
+    let storedEmail = localStorage.getItem("userEmail");
+    let storedPassword = localStorage.getItem("userPassword");
+
+    if(email === storedEmail && password === storedPassword) {
         alert("Login Successful ✅");
-        window.location.href = "index.html"; // ✅ THIS will now work
+        window.location.href = "index.html";
     } else {
         alert("Invalid Email or Password ❌");
     }
 }
 </script>
+
 
 </body>
 </html>
