@@ -9,87 +9,101 @@
 
 <body>
 
-    <!-- 🔷 NAVBAR -->
+    <!-- NAVBAR -->
     <header>
         <nav class="navbar">
             <h1 class="logo">CareerGuide</h1>
             <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Explore Careers</a></li>
-                <li><a href="#">Assessment</a></li>
-                <li><a href="#">Roadmap</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#careers">Explore Careers</a></li>
+                <li><a href="#assessment">Assessment</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
             <button class="login-btn">Login</button>
         </nav>
     </header>
 
-    <!-- 🔷 HERO SECTION -->
-    <section class="hero">
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
         <div class="hero-content">
             <h2>Find the Right Career Path</h2>
-            <p>Confused about your future? Let us guide you with smart recommendations.</p>
+            <p>Not sure what to do next? We help you discover careers that actually fit you.</p>
             <button class="start-btn">Get Started</button>
         </div>
     </section>
 
-    <!-- 🔷 CAREER DISCOVERY -->
-    <section class="career-discovery">
+    <!-- CAREER DISCOVERY -->
+    <section id="assessment" class="career-discovery">
         <h2>Discover Your Career</h2>
-        <p>Answer a few questions and get personalized career suggestions.</p>
+        <p>Answer a few quick questions and get personalized suggestions.</p>
         
         <form>
-            <label>Select Your Interest:</label>
-            <select>
-                <option>Technology</option>
-                <option>Business</option>
-                <option>Arts</option>
-                <option>Healthcare</option>
+            <label for="interest">Select Your Interest:</label>
+            <select id="interest" name="interest">
+                <option value="">-- Choose --</option>
+                <option value="technology">Technology</option>
+                <option value="business">Business</option>
+                <option value="arts">Arts</option>
+                <option value="healthcare">Healthcare</option>
             </select>
 
-            <label>Select Your Strength:</label>
-            <select>
-                <option>Problem Solving</option>
-                <option>Creativity</option>
-                <option>Communication</option>
+            <label for="strength">Select Your Strength:</label>
+            <select id="strength" name="strength">
+                <option value="">-- Choose --</option>
+                <option value="problem-solving">Problem Solving</option>
+                <option value="creativity">Creativity</option>
+                <option value="communication">Communication</option>
             </select>
 
             <button type="submit">Get Suggestion</button>
         </form>
     </section>
 
-    <!-- 🔷 FEATURES SECTION -->
-    <section class="features">
-        <h2>Our Features</h2>
+    <!-- FEATURES SECTION -->
+    <section id="careers" class="features">
+        <h2>What We Offer</h2>
 
         <div class="feature-box">
             <h3>Career Suggestions</h3>
-            <p>Get AI-based recommendations based on your interests.</p>
+            <p>Get recommendations based on your interests and strengths.</p>
         </div>
 
         <div class="feature-box">
-            <h3>Roadmaps</h3>
-            <p>Step-by-step guidance for each career path.</p>
+            <h3>Structured Roadmaps</h3>
+            <p>Follow clear steps to achieve your career goals.</p>
         </div>
 
         <div class="feature-box">
-            <h3>Progress Tracker</h3>
-            <p>Track your growth and achievements.</p>
+            <h3>Progress Tracking</h3>
+            <p>Monitor your learning journey and stay consistent.</p>
         </div>
     </section>
 
-    <!-- 🔷 ROADMAP PREVIEW -->
-    <section class="roadmap">
+    <!-- ROADMAP PREVIEW -->
+    <section id="roadmap" class="roadmap">
         <h2>Sample Career Roadmap</h2>
         <ul>
-            <li>Step 1: Learn Basics</li>
+            <li>Step 1: Learn Fundamentals</li>
             <li>Step 2: Practice Skills</li>
-            <li>Step 3: Build Projects</li>
-            <li>Step 4: Apply for Jobs</li>
+            <li>Step 3: Build Real Projects</li>
+            <li>Step 4: Apply for Opportunities</li>
         </ul>
     </section>
 
-    <!-- 🔷 FOOTER -->
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <p>Have questions? Reach out to us anytime.</p>
+        <form>
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Your Message" rows="4"></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <!-- FOOTER -->
     <footer>
         <p>© 2026 CareerGuide Platform | All Rights Reserved</p>
     </footer>
