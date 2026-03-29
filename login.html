@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - CareerGuide</title>
+<<<<<<< HEAD
+=======
     
+>>>>>>> 28965ac731bd10b42cbd71c307bdbc210de91017
 
     <style>
         body {
@@ -77,6 +80,12 @@
             <button type="submit">Login</button>
         </form>
 
+<<<<<<< HEAD
+        <p>Don't have an account? <a href="#">Register</a></p>
+    </div>
+
+   <script>
+=======
         <p>Don't have an account? <a href="#" onclick="registerUser()">Register</a> </p>
     </div>
 
@@ -94,24 +103,34 @@ function registerUser() {
     }
 }
 
+>>>>>>> 28965ac731bd10b42cbd71c307bdbc210de91017
 function validateLogin(event) {
     event.preventDefault();
 
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
 
+<<<<<<< HEAD
+    if(email === "admin@gmail.com" && password === "1234") {
+        alert("Login Successful ✅");
+        window.location.href = "index.html"; // ✅ THIS will now work
+=======
     let storedEmail = localStorage.getItem("userEmail");
     let storedPassword = localStorage.getItem("userPassword");
 
     if(email === storedEmail && password === storedPassword) {
         alert("Login Successful ✅");
         window.location.href = "index.html";
+>>>>>>> 28965ac731bd10b42cbd71c307bdbc210de91017
     } else {
         alert("Invalid Email or Password ❌");
     }
 }
 </script>
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 28965ac731bd10b42cbd71c307bdbc210de91017
 </body>
 </html>
