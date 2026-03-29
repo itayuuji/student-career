@@ -12,6 +12,10 @@
 <!-- NAVBAR -->
 <nav class="navbar">
     <h1 class="logo">Career Guide</h1>
+
+    <input type="text" id="searchInput" placeholder="Search career...">
+    <button onclick="searchCareer()">Search</button>
+
     <button onclick="logout()">Logout</button>
 </nav>
 
@@ -19,89 +23,76 @@
 <div class="sidebar">
     <h3>Menu</h3>
     <ul>
-        <li onclick="showSection('tracker')">Progress Tracker</li>
+        <li onclick="showSection('tracker')">Roadmap Tracker</li>
         <li onclick="showSection('career')">Explore Career</li>
         <li onclick="showSection('search')">Search Career</li>
         <li onclick="goToContact()">Contact</li>
     </ul>
 </div>
 
-<!-- MAIN CONTENT -->
+<!-- MAIN -->
 <div class="main-content">
 
-    <!-- TRACKER -->
-    <div id="tracker" class="section">
-        <h2>Your Progress Tracker</h2>
-        <p>Track your journey here (you can expand this later)</p>
-    </div>
-
-    <!-- CAREER CHOICE -->
-    <div id="career" class="section" style="display:none;">
-        <h2>Choose Your Path</h2>
-
-        <button onclick="startQuiz()">I am confused</button>
-        <button onclick="selectStream()">I already know my stream</button>
-
-      <div id="quiz" style="display:none;">
-    <h3 id="questionText"></h3>
-
-    <div id="optionsContainer"></div>
-
-    <button onclick="nextQuestion()">Next</button>
+<!-- TRACKER -->
+<div id="tracker" class="section">
+    <h2>Your Career Roadmap</h2>
+    <div id="roadmapSteps"></div>
+    <h3 id="progressText"></h3>
 </div>
 
-<div id="result" style="display:none;"></div>
+<!-- CAREER -->
+<div id="career" class="section" style="display:none;">
+    <h2>Choose Your Path</h2>
 
-        <!-- STREAM SELECT -->
-        <div id="stream" style="display:none;">
-            <h3>Select your stream</h3>
-            <select id="streamSelect">
-                <option value="tech">Technology</option>
-                <option value="business">Business</option>
-                <option value="arts">Arts</option>
-            </select>
-            <button onclick="showStreamCareer()">Show Careers</button>
-        </div>
+    <button onclick="startQuiz()">I am confused</button>
+    <button onclick="selectStream()">I already know my stream</button>
 
-        <!-- RESULT -->
-        <div id="result" style="display:none;"></div>
-
+    <!-- QUIZ -->
+    <div id="quiz" style="display:none;">
+        <h3 id="questionText"></h3>
+        <div id="optionsContainer"></div>
+        <button onclick="nextQuestion()">Next</button>
     </div>
 
-    <!-- SEARCH CAREER SECTION -->
-    <div id="search" class="section" style="display:none;">
-        <h2>Search Career</h2>
-
-        <input type="text" id="searchInput" placeholder="Type a career (e.g. Software Engineer)">
-        <button onclick="searchCareer()">Search</button>
-
-        <div id="careerDetailsContent">
-            <p>Search for a career to see details.</p>
-        </div>
-
-        <!-- GRAPH AREA -->
-        <canvas id="careerChart" width="400" height="200"></canvas>
+    <!-- STREAM -->
+    <div id="stream" style="display:none;">
+        <h3>Select your stream</h3>
+        <select id="streamSelect">
+            <option value="tech">Technology</option>
+            <option value="business">Business</option>
+            <option value="arts">Arts</option>
+            <option value="healthcare">Healthcare</option>
+        </select>
+        <button onclick="showStreamCareer()">Show Careers</button>
     </div>
 
-    <!-- CONTACT SECTION -->
-    <div id="contact" class="section" style="display:none;">
-        <h2>Contact Us</h2>
-        <p>Have questions? Reach out to us anytime.</p>
-        <form>
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea placeholder="Your Message" rows="4"></textarea>
-            <button type="submit">Send Message</button>
-        </form>
-    </div>
+    <div id="result" style="display:none;"></div>
+</div>
+
+<!-- SEARCH -->
+<div id="search" class="section" style="display:none;">
+    <h2>Career Details</h2>
+    <div id="careerDetailsContent"></div>
+    <canvas id="careerChart" width="400" height="200"></canvas>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="section" style="display:none;">
+    <h2>Contact Us</h2>
+    <form>
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Message"></textarea>
+        <button>Send</button>
+    </form>
+</div>
 
 </div>
 
 <script src="script.js"></script>
 
-<!-- FOOTER -->
 <footer>
-    <p>© 2026 CareerGuide Platform | All Rights Reserved</p>
+<p>© 2026 CareerGuide</p>
 </footer>
 
 </body>
