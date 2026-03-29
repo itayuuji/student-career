@@ -69,7 +69,7 @@
     <div class="login-container">
         <h2>Login</h2>
 
-        <form onsubmit="return validateLogin()">
+        <form onsubmit="validateLogin(event)">
             <input type="email" id="email" placeholder="Enter Email" required>
             <input type="password" id="password" placeholder="Enter Password" required>
 
@@ -81,14 +81,14 @@
 
    <script>
 function validateLogin(event) {
-    event.preventDefault(); // stops page reload
+    event.preventDefault();
 
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
 
     if(email === "admin@gmail.com" && password === "1234") {
         alert("Login Successful ✅");
-        window.location.href = "index.html"; // redirect works properly
+        window.location.href = "index.html"; // ✅ THIS will now work
     } else {
         alert("Invalid Email or Password ❌");
     }
