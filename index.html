@@ -151,7 +151,7 @@ select {
 
 <script>
 
-// 🔥 DATA
+// DATA
 const careers = {
     Science: {
         name: "Engineer / Doctor 🔬",
@@ -176,7 +176,7 @@ const careers = {
     }
 };
 
-// 🔥 PATH SELECT
+// PATH SELECT
 function choosePath(type){
     document.getElementById("choiceSection").style.display="none";
 
@@ -187,13 +187,13 @@ function choosePath(type){
     }
 }
 
-// 🔥 KNOWN
+//  KNOWN
 function showCareer(){
     let stream=document.getElementById("stream").value;
     display(careers[stream]);
 }
 
-// 🔥 UNKNOWN (psych logic)
+// UNKNOWN (psych logic)
 function analyze(){
     let q1=document.getElementById("q1").value;
     let q2=document.getElementById("q2").value;
@@ -227,7 +227,7 @@ function goBack() {
     let ctx = c.getContext("2d");
     ctx.clearRect(0,0,c.width,c.height);
 }
-// 🔥 DISPLAY
+//  DISPLAY
 function display(data){
     document.getElementById("resultBox").innerHTML=`
         <h3>${data.name}</h3>
@@ -238,7 +238,7 @@ function display(data){
     drawChart(data.salary,data.competition);
 }
 
-// 🔥 ROADMAP
+// ROADMAP
 function updateRoadmap(steps){
     let list=document.getElementById("roadmapList");
     list.innerHTML="";
@@ -249,7 +249,7 @@ function updateRoadmap(steps){
     });
 }
 
-// 🔥 GRAPH
+// GRAPH
 function drawChart(salary, competition) {
     let c = document.getElementById("chart");
     let ctx = c.getContext("2d");
@@ -294,7 +294,7 @@ function drawChart(salary, competition) {
     ctx.fillText("Competition", 140, 220);
 }
 
-// 🔥 LOGOUT
+//  LOGOUT
 function logout(){
     window.location.href="login.html";
 }
