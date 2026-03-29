@@ -79,21 +79,21 @@
         <p>Don't have an account? <a href="#">Register</a></p>
     </div>
 
-    <script>
-        function validateLogin() {
-            let email = document.getElementById("email").value;
-            let password = document.getElementById("password").value;
+   <script>
+function validateLogin(event) {
+    event.preventDefault(); // stops page reload
 
-            if(email === "admin@gmail.com" && password === "1234") {
-                alert("Login Successful ✅");
-                window.location.href = "index.html"; // redirect to homepage
-                return false;
-            } else {
-                alert("Invalid Email or Password ❌");
-                return false;
-            }
-        }
-    </script>
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    if(email === "admin@gmail.com" && password === "1234") {
+        alert("Login Successful ✅");
+        window.location.href = "index.html"; // redirect works properly
+    } else {
+        alert("Invalid Email or Password ❌");
+    }
+}
+</script>
 
 </body>
 </html>
