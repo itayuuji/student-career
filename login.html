@@ -1,126 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - CareerGuide</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login System</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #4facfe, #00f2fe);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
 
-        .login-container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            width: 320px;
-            box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
-            text-align: center;
-        }
+body {
+    background: radial-gradient(circle, #1a1a1a, #000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-        .login-container h2 {
-            margin-bottom: 20px;
-        }
+/* Container */
+.container {
+    width: 90%;
+    max-width: 350px;
+}
 
-        .login-container input {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
+/* Box */
+.box {
+    background: rgba(255,255,255,0.05);
+    padding: 25px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    text-align: center;
+    color: white;
+}
 
-        .login-container button {
-            width: 100%;
-            padding: 10px;
-            background: #4facfe;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
+/* Inputs */
+input {
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    outline: none;
+}
 
-        .login-container button:hover {
-            background: #007bff;
-        }
+/* Button */
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: white;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: bold;
+}
 
-        .login-container p {
-            margin-top: 15px;
-            font-size: 14px;
-        }
+/* Links */
+p {
+    margin-top: 10px;
+    font-size: 14px;
+}
 
-        .login-container a {
-            color: #007bff;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    </style>
+span {
+    color: #00d4ff;
+    cursor: pointer;
+}
+
+/* Hide register initially */
+#registerBox {
+    display: none;
+}
+</style>
 </head>
 
 <body>
 
-    <div class="login-container">
+<div class="container">
+
+    <!-- LOGIN -->
+    <div class="box" id="loginBox">
         <h2>Login</h2>
 
-        <form onsubmit="validateLogin(event)">
-            <input type="email" id="email" placeholder="Enter Email" required>
-            <input type="password" id="password" placeholder="Enter Password" required>
+        <input type="text" id="loginUser" placeholder="Username">
+        <input type="password" id="loginPass" placeholder="Password">
 
-            <button type="submit">Login</button>
-        </form>
+        <button onclick="login()">Login</button>
 
         <p>Don't have an account? 
-            <a onclick="registerUser()">Register</a>
+            <span onclick="showRegister()">Register</span>
         </p>
     </div>
 
-<script>
-// 📝 REGISTER
-function registerUser() {
-    let email = prompt("Enter your email:");
-    let password = prompt("Enter your password:");
+    <!-- REGISTER -->
+    <div class="box" id="registerBox">
+        <h2>Register</h2>
 
-    if(email && password){
-        localStorage.setItem("userEmail", email);
-        localStorage.setItem("userPassword", password);
-        alert("Registered successfully ✅");
-    } else {
-        alert("Please enter valid details ❌");
-    }
+        <input type="text" id="regUser" placeholder="Create Username">
+        <input type="password" id="regPass" placeholder="Create Password">
+
+        <button onclick="register()">Register</button>
+
+        <p>Already have an account? 
+            <span onclick="showLogin()">Login</span>
+        </p>
+    </div>
+
+</div>
+
+<script>
+// Switch UI
+function showRegister() {
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("registerBox").style.display = "block";
 }
 
-// 🔐 LOGIN
-function validateLogin(event) {
-    event.preventDefault();
+function showLogin() {
+    document.getElementById("registerBox").style.display = "none";
+    document.getElementById("loginBox").style.display = "block";
+}
 
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
+// Register
+function register() {
+    let user = document.getElementById("regUser").value;
+    let pass = document.getElementById("regPass").value;
 
-    let storedEmail = localStorage.getItem("userEmail");
-    let storedPassword = localStorage.getItem("userPassword");
-
-    // First-time user check
-    if(!storedEmail || !storedPassword){
-        alert("No account found! Please register first 👇");
+    if (user === "" || pass === "") {
+        alert("Fill all fields ⚠️");
         return;
     }
 
-    if(email === storedEmail && password === storedPassword) {
+    localStorage.setItem("username", user);
+    localStorage.setItem("password", pass);
+
+    alert("Registered Successfully ✅ Now login");
+    showLogin();
+}
+
+// Login
+function login() {
+    let user = document.getElementById("loginUser").value;
+    let pass = document.getElementById("loginPass").value;
+
+    let savedUser = localStorage.getItem("username");
+    let savedPass = localStorage.getItem("password");
+
+    if (user === savedUser && pass === savedPass) {
         alert("Login Successful ✅");
-
-        localStorage.setItem("loggedIn", "true");
-
         window.location.href = "index.html";
     } else {
-        alert("Invalid Email or Password ❌");
+        let goRegister = confirm("Invalid Login ❌\nDo you want to register?");
+        if (goRegister) {
+            showRegister();
+        }
     }
 }
 </script>

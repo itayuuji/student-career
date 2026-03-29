@@ -3,96 +3,303 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Career Guide Dashboard</title>
-<link rel="stylesheet" href="styles.css">
+<title>CareerGuide Pro</title>
+
+<style>
+* {margin:0; padding:0; box-sizing:border-box; font-family:Arial;}
+
+body {
+    background: radial-gradient(circle at top, #1a1a1a, #000);
+    color: white;
+}
+
+.navbar {
+    display:flex;
+    justify-content:space-between;
+    padding:15px 8%;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+}
+
+button {
+    padding:10px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    margin:10px;
+}
+
+section {padding:50px 8%; text-align:center;}
+
+.hero {height:70vh; display:flex; justify-content:center; align-items:center;}
+
+select {
+    padding:10px;
+    margin:10px;
+    background:#222;
+    color:white;
+    border:none;
+}
+
+.box {
+    background:rgba(255,255,255,0.05);
+    padding:20px;
+    border-radius:12px;
+    margin-top:20px;
+}
+
+#roadmapList li {
+    background:rgba(255,255,255,0.05);
+    margin:10px auto;
+    padding:10px;
+    width:250px;
+    border-radius:6px;
+}
+
+/* Responsive */
+@media(max-width:600px){
+    canvas {width:100%;}
+}
+</style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar">
-    <h1 class="logo">Career Guide</h1>
-
-    <input type="text" id="searchInput" placeholder="Search career...">
-    <button onclick="searchCareer()">Search</button>
-
-    <button onclick="logout()">Logout</button>
+<h2>CareerGuide</h2>
+<button onclick="logout()">Logout</button>
 </nav>
 
-<!-- SIDEBAR -->
-<div class="sidebar">
-    <h3>Menu</h3>
-    <ul>
-        <li onclick="showSection('tracker')">Roadmap Tracker</li>
-        <li onclick="showSection('career')">Explore Career</li>
-        <li onclick="goToContact()">Contact</li>
-    </ul>
+<section class="hero">
+<div>
+<h1>Find Your Perfect Career</h1>
+<p>Smart AI-like guidance (but built by YOU 😏)</p>
 </div>
+</section>
 
-<!-- MAIN -->
-<div class="main-content">
+<!-- PATH CHOICE -->
+<section id="choiceSection">
+<h2>Choose Your Path</h2>
+<button onclick="choosePath('known')">I Know My Stream</button>
+<button onclick="choosePath('unknown')">Help Me Choose</button>
+</section>
 
-<!-- TRACKER -->
-<div id="tracker" class="section">
-    <h2>Your Career Roadmap</h2>
-    <div id="roadmapSteps"></div>
-    <h3 id="progressText"></h3>
+<!-- KNOWN -->
+<section id="knownSection" style="display:none;">
+<h2>Select Your Stream</h2>
+
+<select id="stream">
+<option>Science</option>
+<option>Commerce</option>
+<option>Arts</option>
+</select>
+
+<button onclick="showCareer()">Explore Careers</button>
+<button onclick="goBack()">⬅ Back</button>
+</section>
+
+<!-- UNKNOWN -->
+<section id="unknownSection" style="display:none;">
+<h2>Answer These</h2>
+
+<p>What do you enjoy?</p>
+<select id="q1">
+<option>Solving Problems</option>
+<option>Talking to People</option>
+<option>Creative Work</option>
+</select>
+
+<p>Your personality?</p>
+<select id="q2">
+<option>Logical</option>
+<option>Leader</option>
+<option>Imaginative</option>
+</select>
+
+<p>Your ideal work?</p>
+<select id="q3">
+<option>Technical</option>
+<option>Business</option>
+<option>Artistic</option>
+</select>
+
+<button onclick="analyze()">Find My Career</button>
+<button onclick="goBack()">⬅ Back</button>
+</section>
+
+<!-- RESULT -->
+<section>
+<h2>Career Result</h2>
+<div id="resultBox" class="box">
+<p>Select options to begin</p>
 </div>
+</section>
 
-<!-- CAREER -->
-<div id="career" class="section" style="display:none;">
-    <h2>Choose Your Path</h2>
+<!-- ROADMAP -->
+<section>
+<h2>Career Roadmap</h2>
+<ul id="roadmapList">
+<li>Start exploring</li>
+</ul>
+</section>
 
-    <button onclick="startQuiz()">I am confused</button>
-    <button onclick="selectStream()">I already know my stream</button>
+<!-- GRAPH -->
+<section>
+<h2>Career Insights</h2>
+<canvas id="chart" width="300" height="200"></canvas>
+</section>
 
-    <!-- QUIZ -->
-    <div id="quiz" style="display:none;">
-        <h3 id="questionText"></h3>
-        <div id="optionsContainer"></div>
-        <button onclick="nextQuestion()">Next</button>
-    </div>
+<script>
 
-    <!-- STREAM -->
-    <div id="stream" style="display:none;">
-        <h3>Select your stream</h3>
-        <select id="streamSelect">
-            <option value="tech">Technology</option>
-            <option value="business">Business</option>
-            <option value="arts">Arts</option>
-            <option value="healthcare">Healthcare</option>
-        </select>
-        <button onclick="showStreamCareer()">Show Careers</button>
-    </div>
+// 🔥 DATA
+const careers = {
+    Science: {
+        name: "Engineer / Doctor 🔬",
+        subjects: ["Physics", "Chemistry", "Math/Biology"],
+        roadmap: ["Choose Science", "Prepare for Entrance Exams", "Get Degree", "Internship", "Job"],
+        salary: 9,
+        competition: 9
+    },
+    Commerce: {
+        name: "CA / Business Analyst 💼",
+        subjects: ["Accounts", "Economics", "Business"],
+        roadmap: ["Choose Commerce", "Specialization", "Internship", "Corporate Job"],
+        salary: 8,
+        competition: 7
+    },
+    Arts: {
+        name: "Designer / Psychologist 🎨",
+        subjects: ["Psychology", "History", "Literature"],
+        roadmap: ["Choose Arts", "Skill Development", "Portfolio", "Freelance/Job"],
+        salary: 6,
+        competition: 5
+    }
+};
 
-    <div id="result" style="display:none;"></div>
-</div>
+// 🔥 PATH SELECT
+function choosePath(type){
+    document.getElementById("choiceSection").style.display="none";
 
-<!-- SEARCH -->
-<div id="search" class="section" style="display:none;">
-    <h2>Career Details</h2>
-    <div id="careerDetailsContent"></div>
-    <canvas id="careerChart" width="400" height="200"></canvas>
-</div>
+    if(type==="known"){
+        document.getElementById("knownSection").style.display="block";
+    } else {
+        document.getElementById("unknownSection").style.display="block";
+    }
+}
 
-<!-- CONTACT -->
-<div id="contact" class="section" style="display:none;">
-    <h2>Contact Us</h2>
-    <form>
-        <input type="text" placeholder="Your Name" required>
-        <input type="email" placeholder="Your Email" required>
-        <textarea placeholder="Message"></textarea>
-        <button>Send</button>
-    </form>
-</div>
+// 🔥 KNOWN
+function showCareer(){
+    let stream=document.getElementById("stream").value;
+    display(careers[stream]);
+}
 
-</div>
+// 🔥 UNKNOWN (psych logic)
+function analyze(){
+    let q1=document.getElementById("q1").value;
+    let q2=document.getElementById("q2").value;
+    let q3=document.getElementById("q3").value;
 
-<script src="script.js"></script>
+    let result;
 
-<footer>
-<p>© 2026 CareerGuide</p>
-</footer>
+    if(q1==="Solving Problems" && q2==="Logical"){
+        result=careers.Science;
+    }
+    else if(q1==="Talking to People" && q3==="Business"){
+        result=careers.Commerce;
+    }
+    else{
+        result=careers.Arts;
+    }
+
+    display(result);
+}
+function goBack() {
+    document.getElementById("knownSection").style.display = "none";
+    document.getElementById("unknownSection").style.display = "none";
+    document.getElementById("choiceSection").style.display = "block";
+
+    // Optional reset result
+    document.getElementById("resultBox").innerHTML = "<p>Select options to begin</p>";
+    document.getElementById("roadmapList").innerHTML = "<li>Start exploring</li>";
+
+    // Clear graph
+    let c = document.getElementById("chart");
+    let ctx = c.getContext("2d");
+    ctx.clearRect(0,0,c.width,c.height);
+}
+// 🔥 DISPLAY
+function display(data){
+    document.getElementById("resultBox").innerHTML=`
+        <h3>${data.name}</h3>
+        <p><b>Subjects:</b> ${data.subjects.join(", ")}</p>
+    `;
+
+    updateRoadmap(data.roadmap);
+    drawChart(data.salary,data.competition);
+}
+
+// 🔥 ROADMAP
+function updateRoadmap(steps){
+    let list=document.getElementById("roadmapList");
+    list.innerHTML="";
+    steps.forEach(s=>{
+        let li=document.createElement("li");
+        li.textContent=s;
+        list.appendChild(li);
+    });
+}
+
+// 🔥 GRAPH
+function drawChart(salary, competition) {
+    let c = document.getElementById("chart");
+    let ctx = c.getContext("2d");
+
+    ctx.clearRect(0, 0, c.width, c.height);
+
+    let max = 10; // scale max
+    let height = 150;
+
+    // 🔷 Draw Y-axis numbers
+    ctx.fillStyle = "white";
+    ctx.font = "12px Arial";
+
+    for (let i = 0; i <= max; i += 2) {
+        let y = 200 - (i / max) * height;
+        ctx.fillText(i, 10, y);
+        
+        // grid line
+        ctx.strokeStyle = "rgba(255,255,255,0.1)";
+        ctx.beginPath();
+        ctx.moveTo(30, y);
+        ctx.lineTo(280, y);
+        ctx.stroke();
+    }
+
+    // 🔷 Bars
+    let barWidth = 50;
+
+    // Salary
+    let salaryHeight = (salary / max) * height;
+    ctx.fillStyle = "#00ff88";
+    ctx.fillRect(60, 200 - salaryHeight, barWidth, salaryHeight);
+
+    // Competition
+    let compHeight = (competition / max) * height;
+    ctx.fillStyle = "#ff4d4d";
+    ctx.fillRect(160, 200 - compHeight, barWidth, compHeight);
+
+    // 🔷 Labels
+    ctx.fillStyle = "white";
+    ctx.fillText("Salary", 60, 220);
+    ctx.fillText("Competition", 140, 220);
+}
+
+// 🔥 LOGOUT
+function logout(){
+    window.location.href="login.html";
+}
+
+</script>
 
 </body>
 </html>
