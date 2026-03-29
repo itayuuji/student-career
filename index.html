@@ -9,20 +9,25 @@
 
 <body>
 
-    <!-- NAVBAR -->
-    <header>
-        <nav class="navbar">
-            <h1 class="logo">CareerGuide</h1>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#careers">Explore Careers</a></li>
-                <li><a href="#assessment">Assessment</a></li>
-                <li><a href="#roadmap">Roadmap</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <button class="login-btn">Login</button>
-        </nav>
-    </header>
+    <nav class="navbar">
+    <h1 class="logo">CareerGuide</h1>
+
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#careers">Explore Careers</a></li>
+        <li><a href="#assessment">Assessment</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <!-- 🔍 SEARCH BAR -->
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search careers...">
+        <button onclick="searchCareer()">Search</button>
+    </div>
+
+    <button class="login-btn">Login</button>
+</nav>
 
     <!-- HERO SECTION -->
     <section id="home" class="hero">
